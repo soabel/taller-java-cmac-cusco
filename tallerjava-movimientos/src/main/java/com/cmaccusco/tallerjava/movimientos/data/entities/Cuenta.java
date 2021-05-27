@@ -1,11 +1,10 @@
 package com.cmaccusco.tallerjava.movimientos.data.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,4 +20,8 @@ public class Cuenta {
     private String agencia;
     @Column(name = "nombre_persona")
     private String nombrePersona;
+
+    @JsonIgnoreProperties(ignoreUnknown = true, value = {"cuenta"})
+    @OneToMany(mappedBy = "cuenta")
+    private List<Movimiento> movimientos;
 }
