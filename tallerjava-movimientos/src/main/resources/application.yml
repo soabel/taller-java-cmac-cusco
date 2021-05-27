@@ -1,0 +1,27 @@
+#yaml
+
+#server.port=8082
+
+server:
+  port: 8082
+  servlet:
+    context-path: /api
+
+spring:
+  profiles:
+    active: qas
+  datasource:
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://demo-cmac-development.database.windows.net:1433;database=demo-cmac-development-database;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
+    username: demo-user
+    password: bS53@yA6QmcIZv!m
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.SQLServer2012Dialect
+    hibernate:
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
