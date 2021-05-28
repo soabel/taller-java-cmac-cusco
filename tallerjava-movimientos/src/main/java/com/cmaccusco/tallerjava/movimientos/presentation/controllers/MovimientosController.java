@@ -1,7 +1,9 @@
 package com.cmaccusco.tallerjava.movimientos.presentation.controllers;
 
+import com.cmaccusco.tallerjava.movimientos.business.dtos.MovimientoDto;
 import com.cmaccusco.tallerjava.movimientos.business.services.MovimientosService;
 import com.cmaccusco.tallerjava.movimientos.data.entities.Movimiento;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,6 +12,7 @@ import java.util.List;
 @RequestMapping("movimientos")
 public class MovimientosController {
 
+//    @Autowired
     private MovimientosService movimientosService;
 
     public MovimientosController(MovimientosService movimientosService){
@@ -19,6 +22,11 @@ public class MovimientosController {
     @GetMapping
     public List<Movimiento> findAll() {
         return this.movimientosService.findAll();
+    }
+
+    @GetMapping("/find-simple")
+    public List<MovimientoDto> findSimple() {
+        return this.movimientosService.findSimple();
     }
 
     @GetMapping("/{id}")

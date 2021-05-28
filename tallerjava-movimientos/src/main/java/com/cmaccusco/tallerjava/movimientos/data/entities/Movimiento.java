@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Primary;
 
 import javax.persistence.*;
 
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
