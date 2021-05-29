@@ -36,6 +36,8 @@ public class Movimiento {
     private Double itf;
     @Column(name = "SaldoContable")
     private Double saldoContable;
+    @Column(name = "Usuario_Creacion")
+    private String usuarioCreacion;
 
     @ManyToOne
     @JoinColumn(name = "cuentaId", nullable = true, updatable = false)

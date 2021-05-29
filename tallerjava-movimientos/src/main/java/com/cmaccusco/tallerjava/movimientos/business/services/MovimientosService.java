@@ -13,4 +13,8 @@ public interface MovimientosService {
     void delete(Integer id);
 
     List<MovimientoDto> findSimple();
+
+    List<Movimiento> findByAgencia(String agencia);
+    List<MovimientoDto> findByAgenciaDto(String agencia);
+    List<Movimiento> findByUsuarioCreacion(String usuario);
 }

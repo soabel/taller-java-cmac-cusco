@@ -35,9 +35,18 @@ public class MovimientosController {
     }
 
     @GetMapping("/por-agencia/{agencia}")
-    public String findByAgencia(@PathVariable String agencia) {
+    public List<Movimiento> findByAgencia(@PathVariable String agencia) {
+        return this.movimientosService.findByAgencia(agencia);
+    }
 
-        return "findByAgencia " + agencia.toString() + ", monto =";
+    @GetMapping("/por-agencia-dto/{agencia}")
+    public List<MovimientoDto> findByAgenciaDto(@PathVariable String agencia) {
+        return this.movimientosService.findByAgenciaDto(agencia);
+    }
+
+    @GetMapping("/por-usuario/{usuario}")
+    public List<Movimiento> findByUsuario(@PathVariable String usuario) {
+        return this.movimientosService.findByUsuarioCreacion(usuario);
     }
 
     @PostMapping

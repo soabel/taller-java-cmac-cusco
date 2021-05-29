@@ -4,6 +4,7 @@ import com.cmaccusco.tallerjava.movimientos.business.dtos.MovimientoDto;
 import com.cmaccusco.tallerjava.movimientos.business.services.MovimientosService;
 import com.cmaccusco.tallerjava.movimientos.core.mappers.MovimientoDtoMapper;
 import com.cmaccusco.tallerjava.movimientos.data.entities.Movimiento;
+import com.cmaccusco.tallerjava.movimientos.data.repositories.CustomMovimientosRepository;
 import com.cmaccusco.tallerjava.movimientos.data.repositories.MovimientosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,8 @@ public class MovimientosServiceImpl implements MovimientosService {
 //    @Autowired
     private MovimientoDtoMapper movimientoDtoMapper;
 
-    public MovimientosServiceImpl(MovimientosRepository movimientosRepository, MovimientoDtoMapper movimientoDtoMapper){
+    public MovimientosServiceImpl(MovimientosRepository movimientosRepository,
+                                  MovimientoDtoMapper movimientoDtoMapper){
         this.movimientosRepository=movimientosRepository;
         this.movimientoDtoMapper=movimientoDtoMapper;
     }
@@ -55,9 +57,6 @@ public class MovimientosServiceImpl implements MovimientosService {
 
         return this.movimientoDtoMapper.toMovimientosDto( this.movimientosRepository.findAll());
 
-
-
-
 //         return this.movimientosRepository
 //                 .findAll().stream()
 //                 .map(m-> {
@@ -75,6 +74,22 @@ public class MovimientosServiceImpl implements MovimientosService {
 //                 })
 //                 .collect(Collectors.toList());
 
-
     }
+
+    @Override
+    public List<Movimiento> findByAgencia(String agencia) {
+//        return this.movimientosRepository.findByAgencia(agencia);
+        return this.movimientosRepository.findByAgenciaV2(agencia);
+    }
+
+    @Override
+    public List<MovimientoDto> findByAgenciaDto(String agencia) {
+        return this.movimientosRepository.findByAgenciaV3(agencia);
+    }
+
+    @Override
+    public List<Movimiento> findByUsuarioCreacion(String usuario) {
+        return this.movimientosRepository.findByUsuarioCreacion(usuario);
+    }
+
 }
