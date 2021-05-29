@@ -34,13 +34,10 @@ public class MovimientosController {
         return this.movimientosService.findById(id);
     }
 
-    @GetMapping("/por-agencia/{agencia}/{monto}/")
-    public String findByAgencia(@PathVariable String agencia,
-                                @PathVariable("monto") Double montoMovimiento,
-                                @RequestParam("fecha") String fecha) {
+    @GetMapping("/por-agencia/{agencia}")
+    public String findByAgencia(@PathVariable String agencia) {
 
-        return "findByAgencia " + agencia.toString() + ", monto =" + montoMovimiento
-                + ", fecha =" + fecha;
+        return "findByAgencia " + agencia.toString() + ", monto =";
     }
 
     @PostMapping

@@ -14,8 +14,8 @@ public class MovimientoDto {
     private String fecha;
     private String agencia;
     private String operacion;
-    private Double abono;
-    private Double cargo;
+    private String abono;
+    private String cargo;
     private String cuentaId;
     private String nombrePersona;
 }

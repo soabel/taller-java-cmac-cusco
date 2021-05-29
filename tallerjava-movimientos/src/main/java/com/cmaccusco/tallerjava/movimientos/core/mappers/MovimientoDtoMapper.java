@@ -11,6 +11,8 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface MovimientoDtoMapper {
     @Mappings({
+            @Mapping(source = "abono", target = "abono", numberFormat = "S/ #.00"),
+            @Mapping(source = "cargo", target = "cargo",numberFormat = "S/ #.00"),
             @Mapping(source = "cuenta.id", target = "cuentaId"),
             @Mapping(source = "cuenta.nombrePersona", target = "nombrePersona")
     })
