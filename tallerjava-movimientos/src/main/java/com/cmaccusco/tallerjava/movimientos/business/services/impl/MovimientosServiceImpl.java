@@ -4,8 +4,10 @@ import com.cmaccusco.tallerjava.movimientos.business.dtos.MovimientoDto;
 import com.cmaccusco.tallerjava.movimientos.business.services.MovimientosService;
 import com.cmaccusco.tallerjava.movimientos.core.mappers.MovimientoDtoMapper;
 import com.cmaccusco.tallerjava.movimientos.data.entities.Movimiento;
+import com.cmaccusco.tallerjava.movimientos.data.repositories.CuentasRepository;
 import com.cmaccusco.tallerjava.movimientos.data.repositories.CustomMovimientosRepository;
 import com.cmaccusco.tallerjava.movimientos.data.repositories.MovimientosRepository;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +22,14 @@ public class MovimientosServiceImpl implements MovimientosService {
     private MovimientosRepository movimientosRepository;
 //    @Autowired
     private MovimientoDtoMapper movimientoDtoMapper;
+    private CuentasRepository cuentasRepository;
 
     public MovimientosServiceImpl(MovimientosRepository movimientosRepository,
-                                  MovimientoDtoMapper movimientoDtoMapper){
+                                  MovimientoDtoMapper movimientoDtoMapper,
+                                  CuentasRepository cuentasRepository){
         this.movimientosRepository=movimientosRepository;
         this.movimientoDtoMapper=movimientoDtoMapper;
+        this.cuentasRepository=cuentasRepository;
     }
 
     @Override
@@ -37,9 +42,28 @@ public class MovimientosServiceImpl implements MovimientosService {
         return this.movimientosRepository.findById(id).get();
     }
 
+
     @Override
     public Movimiento save(Movimiento movimiento) {
+
+        var cuenta = this.cuentasRepository.findById(movimiento.getCuenta().getId());
+
+        if(!cuenta.isPresent() ){
+           return null;
+        }
+
+        if(cuenta.get().isBloqueado()==true){
+            return null;
+        }
+
+        if(movimiento.getCargo()>0){
+            if(movimiento.getCargo() > cuenta.get().getSaldo() ){
+                return null;
+            }
+        }
+
         return this.movimientosRepository.save(movimiento);
+
     }
 
     @Override

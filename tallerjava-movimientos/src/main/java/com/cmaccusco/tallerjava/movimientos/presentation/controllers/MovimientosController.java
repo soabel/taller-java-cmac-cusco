@@ -3,7 +3,9 @@ package com.cmaccusco.tallerjava.movimientos.presentation.controllers;
 import com.cmaccusco.tallerjava.movimientos.business.dtos.MovimientoDto;
 import com.cmaccusco.tallerjava.movimientos.business.services.MovimientosService;
 import com.cmaccusco.tallerjava.movimientos.data.entities.Movimiento;
+import com.cmaccusco.tallerjava.movimientos.presentation.controllers.response.BaseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -50,8 +52,12 @@ public class MovimientosController {
     }
 
     @PostMapping
-    public Movimiento save(@RequestBody Movimiento movimiento) {
-      return this.movimientosService.save(movimiento);
+    public ResponseEntity<BaseResponse> save(@RequestBody Movimiento movimiento) {
+        var result = this.movimientosService.save(movimiento);
+        if(result==null){
+            return ResponseEntity.badRequest().body(new BaseResponse("Cuenta bloqueada", null));
+        }
+      return ResponseEntity.ok(new BaseResponse("OK", result));
     }
 
     @PutMapping

@@ -21,6 +21,9 @@ public class Cuenta {
     private String agencia;
     @Column(name = "nombre_persona")
     private String nombrePersona;
+    private boolean bloqueado;
+    private String dni;
+    private Double saldo;
 
     @JsonIgnoreProperties(ignoreUnknown = true, value = {"cuenta"})
     @OneToMany(mappedBy = "cuenta")
