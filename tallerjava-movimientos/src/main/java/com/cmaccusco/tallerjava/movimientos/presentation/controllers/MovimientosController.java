@@ -12,8 +12,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("movimientos")
+// notación PascalCase
 public class MovimientosController {
 
+    // Notación lower Camel Case
 //    @Autowired
     private MovimientosService movimientosService;
 
@@ -21,8 +23,10 @@ public class MovimientosController {
         this.movimientosService= movimientosService;
     }
 
+    // Notación lower Camel Case
     @GetMapping
     public List<Movimiento> findAll() {
+        System.out.println("findAll = ");
         return this.movimientosService.findAll();
     }
 

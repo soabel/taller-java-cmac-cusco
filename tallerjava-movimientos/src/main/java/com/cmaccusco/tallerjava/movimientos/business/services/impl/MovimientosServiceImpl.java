@@ -46,23 +46,34 @@ public class MovimientosServiceImpl implements MovimientosService {
     @Override
     public Movimiento save(Movimiento movimiento) {
 
-        var cuenta = this.cuentasRepository.findById(movimiento.getCuenta().getId());
+        var cuentaSaved = this.cuentasRepository.findById(movimiento.getCuenta().getId());
 
-        if(!cuenta.isPresent() ){
+        if(!cuentaSaved.isPresent() ){
            return null;
         }
 
-        if(cuenta.get().isBloqueado()==true){
+        if(cuentaSaved.get().isBloqueado()==true){
             return null;
         }
 
         if(movimiento.getCargo()>0){
-            if(movimiento.getCargo() > cuenta.get().getSaldo() ){
+            if(movimiento.getCargo() > cuentaSaved.get().getSaldo() ){
                 return null;
             }
         }
 
-        return this.movimientosRepository.save(movimiento);
+        var result= this.movimientosRepository.save(movimiento);
+
+        if(movimiento.getCargo()>0){
+            cuentaSaved.get().setSaldo( cuentaSaved.get().getSaldo() - movimiento.getCargo());
+        }
+        if(movimiento.getAbono()>0){
+            cuentaSaved.get().setSaldo( cuentaSaved.get().getSaldo() + movimiento.getAbono());
+        }
+
+        this.cuentasRepository.save(cuentaSaved.get());
+
+        return result;
 
     }
 

@@ -7,6 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
+// Clases notacion Pascal Case
 public class BaseResponse {
     private String message;
     private Object data;
